@@ -187,7 +187,7 @@
         font-size: 30px;
       }
 
-      @media (max-width: 900px) {
+      @media (max-width: 768px) {
         .banner-links a {
           font-size: 8px;
           color: rgb(113, 120, 103);
@@ -246,7 +246,66 @@
         .question_button {
         font-size: 12px;
       }
+    }
+
+    @media (max-width: 900px) {
+        .banner-links a {
+          font-size: 11px;
+          color: rgb(113, 120, 103);
+          text-decoration: underline;
+          white-space: nowrap;
+        }
+
+        .banner-links {
+          gap: 12px;
+        }
+
+        .banner-title img {
+          width: 100px;
+          height: auto;
+        }
+
+        .right {
+          margin: 0;
+        }
+
+        .left {
+          margin: 0;
+        }
+
+        .banner-links a:hover {
+          border-radius: 2px;
+          background-color: rgb(233, 60, 118);
+          padding: 1px;
+          color: white;
+        }
+
+        .intro {
+          flex-direction: column;
+          align-items: start;
+          height: 60%;
+        }
+
+        .flower_banner {
+          display: none;
+        }
+
+        .intro-text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 17px;
+          text-align: center;
+          margin-left: auto;
+          margin: auto;
+        }
+
+        .questions_container {
+          width: 100%;
+        }
+        
       }
+
     </style>
   </head>
   <body>
