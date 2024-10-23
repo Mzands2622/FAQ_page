@@ -13,11 +13,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
-    <meta charset="utf-8" />
+
     <script
       src="https://code.jquery.com/jquery-3.7.1.js"
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
+    ></script>
+    <script
+      async
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvLKwH00PTeL3Lq01dniKydfM4gGkZAhE&callback=initMap&libraries=maps,marker&v=beta"
     ></script>
     <style type="text/css">
       body,
@@ -26,6 +30,7 @@
         padding: 0px;
         width: 100%;
         height: 100%;
+        background-color: #f7f4ed;
       }
 
       .banner {
@@ -33,7 +38,7 @@
         justify-content: space-between;
         align-items: center;
         font-family: "Montserrat", sans-serif;
-        background: white;
+        background-color: #3a5a40;
         width: 100%;
         height: 70px;
         padding: 0;
@@ -58,15 +63,13 @@
 
       .banner-links a {
         font-size: 1em;
-        color: rgb(113, 120, 103);
-        text-decoration: underline;
-        padding: 10px;
+        color: #f7f4ed;
+        font-weight: 500;
+        text-decoration: none;
       }
 
       .banner-links a:hover {
-        border-radius: 5px;
-        background-color: rgb(233, 60, 118);
-        color: white;
+        color: orange;
       }
 
       .right {
@@ -125,19 +128,19 @@
         width: 100%;
         padding: 15px;
         text-align: left;
-        background-color: white;
+        background-color: #f7f4ed;
         border: none;
         font-size: 18px;
         cursor: pointer;
         font-weight: 400;
-        border-top: 1px solid #000000;
+        border-top: 1px solid #3a5a40;
         height: 75px;
         position: relative;
-        color: rgb(46, 151, 255);
+        color: #f28c38;
       }
 
       .current_question_button {
-        border: 1px solid #000000;
+        border: 1px solid #3a5a40;
         margin-bottom: 10px;
       }
 
@@ -157,7 +160,7 @@
       }
 
       .section_title {
-        color: rgb(238, 185, 87);
+        color: #3a5a40;
       }
 
       i {
@@ -165,6 +168,79 @@
         margin-right: 2px;
       }
 
+      #map {
+        width: auto;
+        height: auto;
+        visibility: visible !important;
+      }
+
+      #map {
+        visibility: visible !important;
+        height: 500px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 10px;
+      }
+
+      .question_answer,
+      .question_button,
+      .question_answer ul,
+      .question_answer li {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .address-container {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .address-container p {
+        margin-right: 10px;
+        font-family: "Montserrat", sans-serif;
+        font-size: 18px;
+        color: #5b5757;
+      }
+
+      input#userAddress {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #cccccc;
+        font-size: 16px;
+        width: 250px;
+        margin-right: 10px;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      button#getEstimate {
+        padding: 10px 15px;
+        background-color: #3a5a40;
+        color: rgb(255, 255, 255);
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      button#getEstimate:hover {
+        background-color: #2d4831;
+      }
+
+      #storeLocationSelector {
+        margin-right: 20px;
+        margin-left: 10px;
+        padding: 6px 15px;
+        border-radius: 5px;
+        background-color: #3a5a40;
+        color: rgb(255, 255, 255);
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      /* Footer CSS */
       .footer_div {
         display: flex;
         justify-content: center;
@@ -172,7 +248,15 @@
         flex-direction: column;
         height: 150px;
         width: 100%;
-        background-color: rgb(62, 55, 55);
+        background-color: #3a5a40;
+      }
+
+      .footer_text {
+        color: rgb(255, 255, 255);
+        font-weight: 800;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        font-size: 30px;
       }
 
       .icons_footer {
@@ -184,19 +268,14 @@
         gap: 30px;
       }
 
-      .footer_text {
+      .copywrite_text {
         color: rgb(255, 255, 255);
-        font-weight: 800;
-        margin-top: 0px;
-        margin-bottom: 15px;
-        font-size: 30px;
       }
 
       @media (max-width: 768px) {
         .banner-links a {
-          font-size: 8px;
-          color: rgb(113, 120, 103);
-          text-decoration: underline;
+          font-size: 11px;
+          color: #f7f4ed;
           white-space: nowrap;
           padding: 0px;
         }
@@ -212,22 +291,16 @@
 
         .right {
           margin-left: 0px;
-          margin-right: 5px;
+          margin-right: 10px;
           margin-top: 0px;
           margin-bottom: 0px;
         }
 
         .left {
-          margin-left: 5px;
+          margin-left: 10px;
           margin-right: 0px;
           margin-top: 0px;
           margin-bottom: 0px;
-        }
-
-        .banner-links a:hover {
-          border-radius: 2px;
-          background-color: rgb(233, 60, 118);
-          color: white;
         }
 
         .intro {
@@ -265,19 +338,36 @@
         .question_answer {
           font-size: 14px;
         }
+
+        button#getEstimate {
+          padding: 3px 8px;
+          font-size: 10px;
+          margin-left: 15px;
+        }
+
+        input#userAddress {
+          width: 45%;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+
+        #storeLocationSelector {
+          padding: 0;
+          font-size: 10px;
+          margin: 0;
+        }
       }
 
       @media (min-width: 510px) and (max-width: 900px) {
         .banner-links a {
           font-size: 11px;
-          color: rgb(113, 120, 103);
-          text-decoration: underline;
+          color: #f7f4ed;
           white-space: nowrap;
           padding: 0px;
         }
 
         .banner-links {
-          gap: 12px;
+          gap: 14px;
         }
 
         .banner-title img {
@@ -287,23 +377,16 @@
 
         .right {
           margin-left: 0px;
-          margin-right: 7px;
+          margin-right: 20px;
           margin-top: 0px;
           margin-bottom: 0px;
         }
 
         .left {
-          margin-left: 7px;
+          margin-left: 20px;
           margin-right: 0px;
           margin-top: 0px;
           margin-bottom: 0px;
-        }
-
-        .banner-links a:hover {
-          border-radius: 2px;
-          background-color: rgb(233, 60, 118);
-          padding: 0px;
-          color: white;
         }
 
         .intro {
@@ -339,26 +422,44 @@
         }
 
         .question_answer {
-          font-size: 15px;
+          font-size: 13px;
+        }
+
+        button#getEstimate {
+          padding: 5px 8px;
+          font-size: 12px;
+        }
+
+        input#userAddress {
+          width: 45%;
+          font-size: 12px;
+          margin-top: 5px;
+        }
+
+        #storeLocationSelector {
+          padding: 0;
+          font-size: 12px;
+          margin: 0;
         }
       }
     </style>
   </head>
+
   <body>
     <div class="banner">
       <div class="banner-links left">
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
-        <a class="contact-link" href="#">Events</a>
+        <a href="about.html">About Us</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="events.html">Events</a>
       </div>
       <a class="banner-title" href="./index.html">
-        <img src="./logo.png" alt="Store Logo" />
+        <img src="../static/images/tertiarylogo50kb.png" alt="Store Logo" />
       </a>
 
       <div class="banner-links right">
-        <a href="#">Order Now</a>
-        <a href="#">FAQ</a>
-        <a class="contact-link" href="#">Testimonials</a>
+        <a href="order.html">Order Now</a>
+        <a href="faq.html">FAQ</a>
+        <a href="locations.html">Locations</a>
       </div>
     </div>
 
@@ -380,7 +481,7 @@
       </div>
       <img
         class="flower_banner"
-        src="flower_banner.jpg"
+        src="../static/images/flower_banner_faq.jpg"
         alt="bouqet of flowers"
       />
     </div>
@@ -398,20 +499,17 @@
             <ul>
               <li>Boston</li>
               <li>Medford</li>
-              <li>Cambrige</li>
+              <li>Cambridge</li>
               <li>Somerville</li>
-              <li>Brookline</li>
-              <li>Newton</li>
-              <li>Watertown</li>
-              <li>Malden</li>
-              <li>Chelsea</li>
               <li>Everett</li>
-              <li>Arlington</li>
-              <li>Belmont</li>
+              <li>Malden</li>
+              <li>Revere</li>
+              <li>Chelsea</li>
             </ul>
             <p>
               If you are unsure if we deliver to your area, please contact us!
             </p>
+            <div id="map"></div>
           </div>
         </div>
 
@@ -431,8 +529,8 @@
           </button>
           <div class="question_answer">
             <p>
-              You can reach us via our Contact Us page or by phone at (555)
-              123-4567.
+              You can reach us via our Contact Us page or by phone at
+              <a href="tel:6176275000">(617) 627-5000</a>
             </p>
           </div>
         </div>
@@ -453,6 +551,50 @@
           </button>
           <div class="question_answer">
             <p>Yes, you can choose a future delivery date at checkout.</p>
+          </div>
+        </div>
+
+        <div class="next_question">
+          <button class="question_button">
+            Enter your address for delivery estimate
+            <i class="fas fa-angle-down"></i>
+          </button>
+          <div class="question_answer">
+            <label>Choose a store location:</label>
+            <select id="storeLocationSelector">
+              <option value="42.36628064018915,-71.06780678241522">
+                Boston
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Medford
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Cambridge
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Somerville
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Everett
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Malden
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Revere
+              </option>
+              <option value="42.36628064018915,-71.06780678241522">
+                Chelsea
+              </option>
+              x
+            </select>
+            <input
+              type="text"
+              id="userAddress"
+              placeholder="Enter your address"
+            />
+            <button id="getEstimate">Get Estimate</button>
+            <p id="deliveryEstimate"></p>
           </div>
         </div>
       </div>
@@ -628,6 +770,9 @@
         <i class="fab fa-twitter"></i>
         <i class="fab fa-facebook"></i>
       </div>
+      <p class="copywrite_text">
+        &copy; 2024 Borcelle Floral Studio. All rights reserved.
+      </p>
     </div>
 
     <script>
@@ -649,6 +794,206 @@
           }
         });
       });
+    </script>
+    <script>
+      function initMap() {
+        const foundStoreCoordinates = document
+          .getElementById("storeLocationSelector")
+          .value.split(",");
+        const storeLocation = {
+          lat: parseFloat(foundStoreCoordinates[0]),
+          lng: parseFloat(foundStoreCoordinates[1]),
+        };
+
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 11,
+          center: storeLocation,
+          mapTypeId: "terrain",
+        });
+
+        const bostonCoords = [
+          { lat: 42.22944032591052, lng: -71.12717524108194 },
+          { lat: 42.283735587035416, lng: -71.1907521930559 },
+          { lat: 42.39012187727108, lng: -71.07547530211413 },
+          { lat: 42.3906378765876, lng: -70.98744567630405 },
+        ];
+
+        const medfordCoords = [
+          { lat: 42.45350643527756, lng: -71.11922640717648 },
+          { lat: 42.435898762080484, lng: -71.14634890378638 },
+          { lat: 42.39661202607398, lng: -71.10103030185591 },
+          { lat: 42.444386531697724, lng: -71.08592410121243 },
+        ];
+
+        const cambridgeCoords = [
+          { lat: 42.369732183872436, lng: -71.06633941761274 },
+          { lat: 42.369732183872436, lng: -71.06633941761274 },
+          { lat: 42.36646927550377, lng: -71.14398035814172 },
+          { lat: 42.40425383420654, lng: -71.1343673213686 },
+        ];
+
+        const somervilleCoords = [
+          { lat: 42.40405073175339, lng: -71.13456111674874 },
+          { lat: 42.37438279884146, lng: -71.10314708585312 },
+          { lat: 42.37368530697633, lng: -71.07336383799353 },
+          { lat: 42.39935689498229, lng: -71.08666760544385 },
+          { lat: 42.41789227460707, lng: -71.12708592745639 },
+        ];
+
+        const everettCoords = [
+          { lat: 42.42422992210172, lng: -71.0284823501236 },
+          { lat: 42.38880299326876, lng: -71.0569781377011 },
+          { lat: 42.39691682886955, lng: -71.0762042123461 },
+          { lat: 42.414725554537924, lng: -71.0732001383545 },
+        ];
+
+        const maldenCoords = [
+          { lat: 42.4446549078484, lng: -71.02571755899514 },
+          { lat: 42.424130358050206, lng: -71.02820664887389 },
+          { lat: 42.41329524677292, lng: -71.07884675453768 },
+          { lat: 42.44482206813666, lng: -71.08542963081845 },
+        ];
+
+        const revereCoords = [
+          { lat: 42.39755145954689, lng: -71.01303714285282 },
+          { lat: 42.39147362224583, lng: -70.98093562225928 },
+          { lat: 42.441405648091596, lng: -70.96016459637448 },
+          { lat: 42.44976600821244, lng: -71.01852946249706 },
+        ];
+
+        const chelseaCoords = [
+          { lat: 42.41432774713589, lng: -71.03328013754025 },
+          { lat: 42.38783447430125, lng: -71.05276370314293 },
+          { lat: 42.384664673458744, lng: -71.02735782024251 },
+          { lat: 42.40076560305704, lng: -71.0102775138331 },
+        ];
+        const bostonPolygon = new google.maps.Polygon({
+          paths: bostonCoords,
+          strokeColor: "#FF0000",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          fillOpacity: 0.35,
+        });
+
+        const medfordPolygon = new google.maps.Polygon({
+          paths: medfordCoords,
+          strokeColor: "#0000FF",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#0000FF",
+          fillOpacity: 0.35,
+        });
+
+        const cambridgePolygon = new google.maps.Polygon({
+          paths: cambridgeCoords,
+          strokeColor: "#00FF00",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#00FF00",
+          fillOpacity: 0.35,
+        });
+
+        const somervillePolygon = new google.maps.Polygon({
+          paths: somervilleCoords,
+          strokeColor: "#FFFF00",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FFFF00",
+          fillOpacity: 0.35,
+        });
+
+        const everettPolygon = new google.maps.Polygon({
+          paths: everettCoords,
+          strokeColor: "#00FFFF",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#00FFFF",
+          fillOpacity: 0.35,
+        });
+
+        const maldenPolygon = new google.maps.Polygon({
+          paths: maldenCoords,
+          strokeColor: "#FFA500",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FFA500",
+          fillOpacity: 0.35,
+        });
+
+        const reverePolygon = new google.maps.Polygon({
+          paths: revereCoords,
+          strokeColor: "#FFA500",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FFA500",
+          fillOpacity: 0.35,
+        });
+
+        const chelseaPolygon = new google.maps.Polygon({
+          paths: chelseaCoords,
+          strokeColor: "#FFA500",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#FFA500",
+          fillOpacity: 0.35,
+        });
+
+        bostonPolygon.setMap(map);
+        medfordPolygon.setMap(map);
+        cambridgePolygon.setMap(map);
+        somervillePolygon.setMap(map);
+        everettPolygon.setMap(map);
+        maldenPolygon.setMap(map);
+        reverePolygon.setMap(map);
+        chelseaPolygon.setMap(map);
+
+        document
+          .getElementById("getEstimate")
+          .addEventListener("click", function () {
+            const userAddress = document.getElementById("userAddress").value;
+            if (userAddress) {
+              const geocoder = new google.maps.Geocoder();
+              geocoder.geocode(
+                { address: userAddress },
+                function (results, status) {
+                  if (status === "OK") {
+                    const userLocation = results[0].geometry.location;
+
+                    const service = new google.maps.DistanceMatrixService();
+                    service.getDistanceMatrix(
+                      {
+                        origins: [storeLocation],
+                        destinations: [userLocation],
+                        travelMode: "DRIVING",
+                      },
+                      function (response, status) {
+                        if (status === "OK") {
+                          const travelTime =
+                            response.rows[0].elements[0].duration.text;
+                          document.getElementById(
+                            "deliveryEstimate"
+                          ).innerText =
+                            "Estimated Delivery Time: " + travelTime;
+                        } else {
+                          document.getElementById(
+                            "deliveryEstimate"
+                          ).innerText = "Unable to calculate delivery time.";
+                        }
+                      }
+                    );
+                  } else {
+                    document.getElementById("deliveryEstimate").innerText =
+                      "Address not found. Please try again!";
+                  }
+                }
+              );
+            } else {
+              document.getElementById("deliveryEstimate").innerText =
+                "Please enter a valid address.";
+            }
+          });
+      }
     </script>
   </body>
 </html>
